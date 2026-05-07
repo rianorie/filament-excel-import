@@ -523,14 +523,6 @@ trait CanImportExcelRecords
                     'job_connection' => $importer->getJobConnection(),
                 ]);
 
-                Log::info('Import batch debug', [
-                    'chunk_count' => $importChunks->count(),
-                    'queue_default' => config('queue.default'),
-                    'job_connection' => $importer->getJobConnection(),
-                    'job_queue' => $importer->getJobQueue(),
-                    'job_class' => $action->getJob(),
-                ]);
-
                 Bus::batch($importChunks->all())
                     ->allowFailures()
                     ->when(
